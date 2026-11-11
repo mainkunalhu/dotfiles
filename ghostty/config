@@ -2,3 +2,6 @@
 # Nerd Font Mono is required for Starship glyphs (installed: font-jetbrains-mono-nerd-font).
 font-family = "JetBrainsMono Nerd Font Mono"
 font-size = 13
+
+# Posterpole warm-muted theme (ghostty/themes/posterpole-default)
+theme = "posterpole-default"

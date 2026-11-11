@@ -50,12 +50,12 @@ for entry in "$DOTFILES_DIR"/* "$DOTFILES_DIR"/.*; do
   link_target "$entry" "$CONFIG_DIR/$name"
 done
 
-# Ghostty on macOS reads ~/Library/Application Support/com.mitchellh.ghostty/config,
-# not ~/.config — link the versioned copy there too.
-if [ "$(uname)" = "Darwin" ] && [ -f "$DOTFILES_DIR/ghostty/config" ]; then
+# Ghostty on macOS reads ~/Library/Application Support/com.mitchellh.ghostty/,
+# not ~/.config — link the whole versioned dir there (config + themes resolve together).
+if [ "$(uname)" = "Darwin" ] && [ -d "$DOTFILES_DIR/ghostty" ]; then
   GHOSTTY_DIR="$HOME/Library/Application Support/com.mitchellh.ghostty"
-  mkdir -p "$GHOSTTY_DIR"
-  link_target "$DOTFILES_DIR/ghostty/config" "$GHOSTTY_DIR/config"
+  mkdir -p "$(dirname "$GHOSTTY_DIR")"
+  link_target "$DOTFILES_DIR/ghostty" "$GHOSTTY_DIR"
 fi
 
 echo "Done. Open a new terminal or run: source ~/.zshrc"

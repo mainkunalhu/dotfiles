@@ -1,5 +1,19 @@
 "$schema" = "https://starship.rs/config-schema.json"
 
+# Posterpole palette (matches ghostty/themes/posterpole-default):
+# named styles below (cyan, purple, yellow, green, red) resolve through this.
+palette = "posterpole"
+
+[palettes.posterpole]
+black = "#2c2c30"
+red = "#a97070"
+green = "#778c73"
+yellow = "#cc9166"
+blue = "#6c7f93"
+purple = "#b894af"
+cyan = "#8ea4a2"
+white = "#afa79d"
+
 # Minimal two-line prompt: location + git on top, ❯ below.
 format = """$directory$git_branch$git_status$nodejs$python$cmd_duration$line_break$character"""
 
