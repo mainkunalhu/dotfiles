@@ -14,6 +14,8 @@ dotfiles/
       geto-original.png  <- original upload
   home/
     .zshrc                <- shell startup: fastfetch autorun + `clear` alias + starship init
+  ghostty/
+    config                <- font JetBrainsMono Nerd Font Mono (linked to macOS Ghostty location too)
   starship.toml           <- minimal prompt (linked to ~/.config/starship.toml)
   install.sh              <- symlinks everything into ~/.config + $HOME
   README.md
@@ -31,21 +33,20 @@ cd ~/dotfiles
 
 - `~/dotfiles/fastfetch` → `~/.config/fastfetch`
 - `~/dotfiles/starship.toml` → `~/.config/starship.toml`
+- `~/dotfiles/ghostty/config` → `~/Library/Application Support/com.mitchellh.ghostty/config` (macOS Ghostty location)
 - `~/dotfiles/home/.*` → `~/.*` (e.g. `.zshrc`, with backup of existing files)
 
 ## Shell prompt (Starship, minimal)
 
-Setup used here: macOS **Terminal.app** + **cmux** multiplexer (no Ghostty).
+Setup used here: **Ghostty** + **cmux** multiplexer.
 
 - Requires a Nerd Font: `brew install --cask font-jetbrains-mono-nerd-font` (already installed).
-  Terminal.app can't take font config from a file — set it once manually:
-  **Terminal → Settings → Profiles → Text → Font → Change → `JetBrainsMono Nerd Font`**
-  (cmux inherits the Terminal.app font, nothing extra needed there).
+  Set in `ghostty/config` as `font-family = "JetBrainsMono Nerd Font Mono"` — Ghostty picks config changes up live, no restart needed.
 - Prompt is two lines: `directory on <git-branch> <status>` then a green `❯` (red when last command failed).
 - Shows node/python versions only inside project dirs, command duration only over 2s.
 - Tweak it in `starship.toml`, then open a new terminal — no reinstall needed (symlinked).
 
-## Fastfetch image (Terminal.app + cmux)
+## Fastfetch image (Ghostty + cmux)
 
 - The Geto PNG already renders in your cmux setup via the `kitty` graphics type — keep it.
 - Config: `fastfetch/config.jsonc` → `logo.source = ~/.config/fastfetch/assets/geto-rounded.png`, `logo.type = kitty`, `logo.width = 30`.

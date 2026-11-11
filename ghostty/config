@@ -1,0 +1,4 @@
+# Ghostty config — versioned in dotfiles, linked to the macOS location by install.sh.
+# Nerd Font Mono is required for Starship glyphs (installed: font-jetbrains-mono-nerd-font).
+font-family = "JetBrainsMono Nerd Font Mono"
+font-size = 13
