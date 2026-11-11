@@ -8,11 +8,13 @@ Repo layout **mirrors** `~/.config`:
 ```text
 dotfiles/
   fastfetch/
-    config.jsonc
+    config.jsonc          <- slim: title, os, uptime, shell, terminal, cpu, memory, disk, Directory(pwd)
     assets/
       geto-rounded.png   <- rounded-corners image used by fastfetch
       geto-original.png  <- original upload
-  install.sh             <- symlinks everything into ~/.config
+  home/
+    .zshrc                <- shell startup: auto-runs fastfetch + `clear` alias
+  install.sh              <- symlinks everything into ~/.config + $HOME
   README.md
 ```
 
@@ -22,18 +24,35 @@ dotfiles/
 git clone <this-repo> ~/dotfiles
 cd ~/dotfiles
 ./install.sh
-fastfetch
 ```
 
 `install.sh` symlinks:
 
 - `~/dotfiles/fastfetch` → `~/.config/fastfetch`
+- `~/dotfiles/home/.*` → `~/.*` (e.g. `.zshrc`, with backup of existing files)
 
 ## Fastfetch image (Ghostty)
 
 - Terminal: Ghostty supports the `kitty` graphics protocol, so the Geto PNG shows on the left where ASCII used to be.
-- Config: `fastfetch/config.jsonc` → `logo.source = ~/.config/fastfetch/assets/geto-rounded.png`, `logo.type = kitty`, `logo.width = 32`.
-- Rounded corners were pre-baked into `geto-rounded.png` (transparent 180px radius mask) because fastfetch itself can't round images.
+- Config: `fastfetch/config.jsonc` → `logo.source = ~/.config/fastfetch/assets/geto-rounded.png`, `logo.type = kitty`, `logo.width = 30`.
+- Slimmed to ~10 lines (title, os, uptime, shell, terminal, cpu, memory, disk, Directory, colors) so text fits the image height.
+- `Directory` is a `command` module running `pwd` — it shows the folder you ran fastfetch from, and updates every time fastfetch runs (e.g. `cd /tmp && fastfetch` shows `/tmp`).
+- Live-updating path without re-running isn't a fastfetch thing — your shell prompt already does that. Don't auto-run fastfetch on every `cd` (it re-renders the image each time and gets noisy).
+
+### Always on top (new terminal + after `clear`)
+
+`home/.zshrc` contains:
+
+```zsh
+if command -v fastfetch >/dev/null 2>&1 && [[ -o interactive ]] && [[ -t 1 ]]; then
+  fastfetch
+  alias clear='command clear && fastfetch'
+fi
+```
+
+- New interactive terminal → fastfetch runs once at the top.
+- `clear` → clears then re-runs fastfetch, so it's always back on top.
+- Guarded by `[[ -t 1 ]]` so scripts, pipes, and agent shells stay clean.
 
 ### If image doesn't show
 

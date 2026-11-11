@@ -1,5 +1,7 @@
 #!/bin/sh
-# Symlink every top-level entry in this repo into ~/.config
+# Symlink this repo onto the system.
+# - top-level folders (fastfetch/, fish/, ...) -> ~/.config/<name>
+# - home/* (e.g. home/.zshrc)                 -> ~/<name>
 # Usage: ./install.sh
 set -eu
 
@@ -8,23 +10,44 @@ CONFIG_DIR="$HOME/.config"
 
 mkdir -p "$CONFIG_DIR"
 
-for entry in "$DOTFILES_DIR"/*; do
+link_target() {
+  src="$1"
+  dest="$2"
+  if [ -e "$dest" ] && [ ! -L "$dest" ]; then
+    backup="$dest.backup.$(date +%Y%m%d%H%M%S)"
+    echo "Backing up existing $dest -> $backup"
+    mv "$dest" "$backup"
+  fi
+  if [ -L "$dest" ]; then
+    rm "$dest"
+  fi
+  echo "Linking $src -> $dest"
+  ln -s "$src" "$dest"
+}
+
+for entry in "$DOTFILES_DIR"/* "$DOTFILES_DIR"/.*; do
   name="$(basename "$entry")"
-  # skip repo meta files
   case "$name" in
-    README.md|LICENSE|.git|.gitignore|install.sh) continue;;
+    .|..|.git|.gitignore|README.md|LICENSE|install.sh|.) continue;;
   esac
-  target="$CONFIG_DIR/$name"
-  if [ -e "$target" ] && [ ! -L "$target" ]; then
-    backup="$target.backup.$(date +%Y%m%d%H%M%S)"
-    echo "Backing up existing $target -> $backup"
-    mv "$target" "$backup"
+  [ -e "$entry" ] || continue
+  # home/ holds $HOME dotfiles (e.g. .zshrc)
+  if [ "$name" = "home" ] && [ -d "$entry" ]; then
+    for dot in "$entry"/.* "$entry"/*; do
+      dname="$(basename "$dot")"
+      case "$dname" in
+        .|..|.gitignore|.DS_Store) continue;;
+      esac
+      [ -e "$dot" ] || continue
+      link_target "$dot" "$HOME/$dname"
+    done
+    continue
   fi
-  if [ -L "$target" ]; then
-    rm "$target"
-  fi
-  echo "Linking $entry -> $target"
-  ln -s "$entry" "$target"
+  # hidden files at repo root (except home contents) are skipped
+  case "$name" in
+    .*) continue;;
+  esac
+  link_target "$entry" "$CONFIG_DIR/$name"
 done
 
-echo "Done. Run: fastfetch"
+echo "Done. Open a new terminal or run: source ~/.zshrc"
