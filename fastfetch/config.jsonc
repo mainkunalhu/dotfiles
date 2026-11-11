@@ -1,0 +1,50 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+  // Geto image on the left, system info on the right.
+  // Works best in Ghostty / Kitty / WezTerm (kitty graphics protocol).
+  // If your terminal doesn't support kitty graphics, switch "type" to "chafa".
+  "logo": {
+    "source": "~/.config/fastfetch/assets/geto-rounded.png",
+    "type": "kitty",
+    "width": 32,
+    "padding": {
+      "top": 1,
+      "left": 2,
+      "right": 4
+    }
+  },
+  "display": {
+    "separator": ": "
+  },
+  "modules": [
+    "title",
+    "separator",
+    "os",
+    "host",
+    "kernel",
+    "uptime",
+    "packages",
+    "shell",
+    "display",
+    "de",
+    "wm",
+    "wmtheme",
+    "theme",
+    "icons",
+    "font",
+    "cursor",
+    "terminal",
+    "terminalfont",
+    "cpu",
+    "gpu",
+    "memory",
+    "swap",
+    "disk",
+    "localip",
+    "battery",
+    "poweradapter",
+    "locale",
+    "break",
+    "colors"
+  ]
+}
