@@ -46,7 +46,7 @@ Setup used here: **Ghostty** + **cmux** multiplexer.
   Set in `ghostty/config` as `font-family = "JetBrainsMono Nerd Font Mono"` — Ghostty picks config changes up live, no restart needed.
 - Theme is **posterpole-default** everywhere: Ghostty (`theme = "posterpole-default"`, file in `ghostty/themes/`)
   and Starship (`palette = "posterpole"` in `starship.toml`, same hex values), so prompt colors match the terminal.
-- Prompt is powerline-style on two lines: green `user@host` block + `` arrow, git branch/status when in a repo, `| HH:MM:SS` time, then `$` below (red when last command failed).
+- Prompt on two lines: green `user@host`, cyan current folder name only (e.g. `Coding`), git branch/status when in a repo, `| HH:MM:SS` time, then `$` below (red when last command failed).
 - Shows command duration only over 2s.
 - Tweak it in `starship.toml` (keep top-level `palette`/`format` above all `[tables]` — TOML rule), then open a new terminal — no reinstall needed (symlinked).
 

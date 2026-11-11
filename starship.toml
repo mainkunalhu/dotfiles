@@ -1,10 +1,10 @@
 "$schema" = "https://starship.rs/config-schema.json"
 
-# Powerline look (user@host block + time, $ below), posterpole colors.
+# user@host + current folder + git + time on top, $ below. PosterPole colors.
 # NOTE: top-level keys (palette, format) must stay above all [tables] — TOML
 # assigns anything after a [header] to that table.
 palette = "posterpole"
-format = """$username$hostname$git_branch$git_status$cmd_duration$time$line_break$character"""
+format = """$username$hostname$directory$git_branch$git_status$cmd_duration$time$line_break$character"""
 
 # Posterpole palette (matches ghostty/themes/posterpole-default):
 # named styles below resolve through this.
@@ -20,14 +20,18 @@ white = "#afa79d"
 
 [username]
 show_always = true
-style_user = "black bold bg:green"
-style_root = "black bold bg:red"
+style_user = "bold green"
+style_root = "bold red"
 format = "[$user]($style)"
 
 [hostname]
 ssh_only = false
-style = "black bold bg:green"
-format = "[@$hostname]($style)[ ](bold green) "
+style = "bold green"
+format = "[@$hostname]($style) "
+
+[directory]
+truncation_length = 1
+style = "bold cyan"
 
 [git_branch]
 style = "bold purple"
