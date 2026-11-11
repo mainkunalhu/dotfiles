@@ -1,0 +1,32 @@
+"$schema" = "https://starship.rs/config-schema.json"
+
+# Minimal two-line prompt: location + git on top, ❯ below.
+format = """$directory$git_branch$git_status$nodejs$python$cmd_duration$line_break$character"""
+
+[directory]
+truncation_length = 3
+truncate_to_repo = true
+style = "bold cyan"
+
+[git_branch]
+style = "bold purple"
+format = "on [$symbol$branch]($style) "
+
+[git_status]
+style = "bold yellow"
+format = "([$all_status$ahead_behind]($style) )"
+
+[nodejs]
+symbol = " "
+
+[python]
+symbol = " "
+
+[cmd_duration]
+min_time = 2000
+style = "bold yellow"
+format = "took [$duration]($style) "
+
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"

@@ -13,7 +13,10 @@ dotfiles/
       geto-rounded.png   <- rounded-corners image used by fastfetch
       geto-original.png  <- original upload
   home/
-    .zshrc                <- shell startup: auto-runs fastfetch + `clear` alias
+    .zshrc                <- shell startup: fastfetch autorun + `clear` alias + starship init
+  ghostty/
+    config                <- font-family JetBrainsMono Nerd Font (linked to macOS Ghostty location too)
+  starship.toml           <- minimal prompt (linked to ~/.config/starship.toml)
   install.sh              <- symlinks everything into ~/.config + $HOME
   README.md
 ```
@@ -29,7 +32,16 @@ cd ~/dotfiles
 `install.sh` symlinks:
 
 - `~/dotfiles/fastfetch` → `~/.config/fastfetch`
+- `~/dotfiles/starship.toml` → `~/.config/starship.toml`
+- `~/dotfiles/ghostty/config` → `~/Library/Application Support/com.mitchellh.ghostty/config` (macOS Ghostty location)
 - `~/dotfiles/home/.*` → `~/.*` (e.g. `.zshrc`, with backup of existing files)
+
+## Shell prompt (Starship, minimal)
+
+- Requires a Nerd Font: `brew install --cask font-jetbrains-mono-nerd-font`, set as Ghostty `font-family` (done in `ghostty/config`).
+- Prompt is two lines: `directory on <git-branch> <status>` then a green `❯` (red when last command failed).
+- Shows node/python versions only inside project dirs, command duration only over 2s.
+- Tweak it in `starship.toml`, then open a new terminal — no reinstall needed (symlinked).
 
 ## Fastfetch image (Ghostty)
 

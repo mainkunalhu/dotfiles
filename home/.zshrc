@@ -29,3 +29,8 @@ if command -v fastfetch >/dev/null 2>&1 && [[ -o interactive ]] && [[ -t 1 ]]; t
   fastfetch
   alias clear='command clear && fastfetch'
 fi
+
+# starship prompt (minimal)
+if command -v starship >/dev/null 2>&1; then
+  eval "$(starship init zsh)"
+fi
