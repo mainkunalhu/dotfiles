@@ -55,7 +55,8 @@ Setup used here: **Ghostty** + **cmux** multiplexer.
 - The Geto PNG already renders in your cmux setup via the `kitty` graphics type — keep it.
 - Config: `fastfetch/config.jsonc` → `logo.source = ~/.config/fastfetch/assets/geto-rounded.png`, `logo.type = kitty`, `logo.width = 30`.
 - Slimmed to ~10 lines (title, os, uptime, shell, terminal, cpu, memory, disk, Directory) so text fits the image height.
-- `Directory` is a `command` module running `pwd` — it shows the folder you ran fastfetch from, and updates every time fastfetch runs (e.g. `cd /tmp && fastfetch` shows `/tmp`).
+- Narrow windows: `display.disableLinewrap` is on, so long lines truncate at the edge instead of wrapping mid-line; disk uses a compact `{used} / {total} ({percent})` format.
+- `Directory` is a `command` module running `pwd | sed "s|^$HOME|~|"` — shows the folder as `~/...`, updates every fastfetch run (e.g. `cd /tmp && fastfetch` shows `/tmp`).
 - Live-updating path without re-running isn't a fastfetch thing — your shell prompt already does that. Don't auto-run fastfetch on every `cd` (it re-renders the image each time and gets noisy).
 
 ### Always on top (new terminal + after `clear`)

@@ -13,7 +13,8 @@
     }
   },
   "display": {
-    "separator": ": "
+    "separator": ": ",
+    "disableLinewrap": true
   },
   "modules": [
     "break",
@@ -26,11 +27,15 @@
     "terminal",
     "cpu",
     "memory",
-    "disk",
+    {
+      "type": "disk",
+      "key": "Disk",
+      "format": "{size-used} / {size-total} ({size-percentage})"
+    },
     {
       "type": "command",
       "key": "Directory",
-      "text": "pwd"
+      "text": "pwd | sed \"s|^$HOME|~|\""
     }
   ]
 }
