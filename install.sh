@@ -50,12 +50,9 @@ for entry in "$DOTFILES_DIR"/* "$DOTFILES_DIR"/.*; do
   link_target "$entry" "$CONFIG_DIR/$name"
 done
 
-# Ghostty on macOS reads ~/Library/Application Support/com.mitchellh.ghostty/config,
-# not ~/.config — link the versioned copy there too.
-if [ "$(uname)" = "Darwin" ] && [ -f "$DOTFILES_DIR/ghostty/config" ]; then
-  GHOSTTY_DIR="$HOME/Library/Application Support/com.mitchellh.ghostty"
-  mkdir -p "$GHOSTTY_DIR"
-  link_target "$DOTFILES_DIR/ghostty/config" "$GHOSTTY_DIR/config"
+if [ -L "$CONFIG_DIR/ghostty" ] && [ ! -e "$DOTFILES_DIR/ghostty" ]; then
+  echo "Removing stale $CONFIG_DIR/ghostty symlink (Ghostty not in use)"
+  rm "$CONFIG_DIR/ghostty"
 fi
 
 echo "Done. Open a new terminal or run: source ~/.zshrc"
