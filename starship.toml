@@ -1,9 +1,13 @@
 "$schema" = "https://starship.rs/config-schema.json"
 
-# Posterpole palette (matches ghostty/themes/posterpole-default):
-# named styles below (cyan, purple, yellow, green, red) resolve through this.
+# Powerline look (user@host block + time, $ below), posterpole colors.
+# NOTE: top-level keys (palette, format) must stay above all [tables] — TOML
+# assigns anything after a [header] to that table.
 palette = "posterpole"
+format = """$username$hostname$git_branch$git_status$cmd_duration$time$line_break$character"""
 
+# Posterpole palette (matches ghostty/themes/posterpole-default):
+# named styles below resolve through this.
 [palettes.posterpole]
 black = "#2c2c30"
 red = "#a97070"
@@ -14,13 +18,16 @@ purple = "#b894af"
 cyan = "#8ea4a2"
 white = "#afa79d"
 
-# Minimal two-line prompt: location + git on top, ❯ below.
-format = """$directory$git_branch$git_status$nodejs$python$cmd_duration$line_break$character"""
+[username]
+show_always = true
+style_user = "black bold bg:green"
+style_root = "black bold bg:red"
+format = "[$user]($style)"
 
-[directory]
-truncation_length = 3
-truncate_to_repo = true
-style = "bold cyan"
+[hostname]
+ssh_only = false
+style = "black bold bg:green"
+format = "[@$hostname]($style)[ ](bold green) "
 
 [git_branch]
 style = "bold purple"
@@ -30,17 +37,17 @@ format = "on [$symbol$branch]($style) "
 style = "bold yellow"
 format = "([$all_status$ahead_behind]($style) )"
 
-[nodejs]
-symbol = " "
-
-[python]
-symbol = " "
-
 [cmd_duration]
 min_time = 2000
 style = "bold yellow"
 format = "took [$duration]($style) "
 
+[time]
+disabled = false
+time_format = "%T"
+style = "bold green"
+format = "| [$time]($style) "
+
 [character]
-success_symbol = "[❯](bold green)"
-error_symbol = "[❯](bold red)"
+success_symbol = "[\\$](bold white)"
+error_symbol = "[\\$](bold red)"
