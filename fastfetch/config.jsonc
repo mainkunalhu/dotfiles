@@ -17,6 +17,7 @@
   },
   "modules": [
     "break",
+    "break",
     "title",
     "separator",
     "os",
