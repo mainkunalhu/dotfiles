@@ -16,6 +16,7 @@
     "separator": ": "
   },
   "modules": [
+    "break",
     "title",
     "separator",
     "os",
@@ -29,8 +30,6 @@
       "type": "command",
       "key": "Directory",
       "text": "pwd"
-    },
-    "break",
-    "colors"
+    }
   ]
 }
