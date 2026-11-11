@@ -3,5 +3,8 @@
 font-family = "JetBrainsMono Nerd Font Mono"
 font-size = 13
 
+# Breathing room on the left/right window edges
+window-padding-x = 16
+
 # Posterpole warm-muted theme (ghostty/themes/posterpole-default)
 theme = "posterpole-default"
